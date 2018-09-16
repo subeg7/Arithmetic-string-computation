@@ -12,28 +12,29 @@ import java.util.List;
  *
  * @author subeg
  */
-public class Stack {
+public class Queue {
 
-    private List<Character> list = new ArrayList<Character>();
-    private int pointer =  -1;
-    private int size=pointer;
-   
+    private List<String> list = new ArrayList<String>();
+    private int tail = -1;
+    private int head = 0;
+    private int size = 0;
 
-    public void push(char item) {
-        list.add(item);
-        pointer++;
+    public void enque(String item) {
+
+        tail++;
         size++;
+
+        list.add(item);
     }
 
-    public char pop() {
-
-        if (pointer > -1) {
-            char item = list.remove(pointer);
-            pointer--;
+    public String deque() {
+        if (size > 0) {
             size--;
+            String item = list.remove(0);
             return item;
+            
         } else {
-            return 'n';
+            return "null";
         }
 
     }

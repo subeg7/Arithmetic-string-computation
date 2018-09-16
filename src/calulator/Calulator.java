@@ -21,10 +21,17 @@ public class Calulator {
         //input the expression
         Scanner reader = new Scanner(System.in);  
         System.out.println("Enter a text: ");
-        String input = reader.nextLine();
-        System.out.println("THe input was " + input);
+//        String input = reader.nextLine();
+//        System.out.println("THe input was " + input);
         
+        //instantiating Stack and Queue
+          Stack opStack = new Stack();
+          Queue queue = new Queue();
+         
+          
+         
         //parsing the expression
+        
         
         reader.close();
     }
