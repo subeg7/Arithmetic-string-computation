@@ -17,13 +17,15 @@ public class Calulator {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-
+        
+        //input the expression
         Scanner reader = new Scanner(System.in);  
         System.out.println("Enter a text: ");
         String input = reader.nextLine();
         System.out.println("THe input was " + input);
-
+        
+        //parsing the expression
+        
         reader.close();
     }
 
