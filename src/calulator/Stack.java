@@ -14,26 +14,26 @@ import java.util.List;
  */
 public class Stack {
 
-    private List<Character> list = new ArrayList<Character>();
+    private List<String> list = new ArrayList<String>();
     private int pointer =  -1;
     private int size=pointer;
    
 
-    public void push(char item) {
+    public void push(String item) {
         list.add(item);
         pointer++;
         size++;
     }
 
-    public char pop() {
+    public String pop() {
 
         if (pointer > -1) {
-            char item = list.remove(pointer);
+            String item = list.remove(pointer);
             pointer--;
             size--;
             return item;
         } else {
-            return 'n';
+            return "n";
         }
 
     }
