@@ -38,4 +38,11 @@ public class Queue {
         }
 
     }
+    
+    public void display(){
+        System.out.println("\nQueue is:");
+        for(String item:list){
+            System.out.print(item);
+        }
+    }
 }

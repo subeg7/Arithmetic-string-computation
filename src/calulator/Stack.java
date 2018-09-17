@@ -16,7 +16,7 @@ public class Stack {
 
     private List<String> list = new ArrayList<String>();
     private int pointer =  -1;
-    private int size=pointer;
+    public int size;
    
 
     public void push(String item) {
@@ -33,8 +33,18 @@ public class Stack {
             size--;
             return item;
         } else {
-            return "n";
+            return "null";
         }
 
+    }
+    
+    
+    public void display(){
+        
+        System.out.println("\nStack is:");
+        for(String item:list){
+            System.out.print(item);
+        }
+       
     }
 }
