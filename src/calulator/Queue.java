@@ -17,7 +17,7 @@ public class Queue {
     private List<String> list = new ArrayList<String>();
     private int tail = -1;
     private int head = 0;
-    private int size = 0;
+    public int size = 0;
 
     public void enque(String item) {
 
@@ -40,7 +40,7 @@ public class Queue {
     }
     
     public void display(){
-        System.out.println("\nQueue is:");
+        System.out.println("\nPost-Fix expression is:");
         for(String item:list){
             System.out.print(item);
         }

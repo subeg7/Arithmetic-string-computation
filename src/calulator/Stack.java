@@ -12,28 +12,32 @@ import java.util.List;
  *
  * @author subeg
  */
-public class Stack {
+public class Stack<E> {
 
-    private List<String> list = new ArrayList<String>();
+    private List<E> list = new ArrayList<E>();  
+//    private List<E> dfdf ;
+
     private int pointer =  -1;
     public int size;
    
+   
+    
 
-    public void push(String item) {
+    public void push(E item) {
         list.add(item);
         pointer++;
         size++;
     }
 
-    public String pop() {
+    public E pop() {
 
         if (pointer > -1) {
-            String item = list.remove(pointer);
+            E item = list.remove(pointer);
             pointer--;
             size--;
             return item;
         } else {
-            return "null";
+            return null;
         }
 
     }
@@ -42,7 +46,7 @@ public class Stack {
     public void display(){
         
         System.out.print("\nStack is:");
-        for(String item:list){
+        for(E item:list){
             System.out.print(item);
         }
        

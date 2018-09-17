@@ -21,8 +21,10 @@ public class Calulator {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        String exp = "27*31+5/(61+7*5^23)+52";
-        String exp = "7/(5+2)";
+        String exp = "2*3+5/(6+7*5^1)+4";  
+//        String exp = "5/(6+7*5^8)+4";
+
+//        String exp = "7/(5+2)";
         int expInd = 0;
         int expLength = 0;
 
@@ -36,10 +38,10 @@ public class Calulator {
 //        System.out.println("size of expression is:" + exp.length());
 
         //instantiating Stack and Queue
-        Stack opStack = new Stack();
+        Stack<String> opStack = new Stack();
         Queue queue = new Queue();
 
-        //parsing the expression
+        //converting the infix  expression to post-fix expression
         while (expInd + 1 <= exp.length()) {
             char item = exp.charAt(expInd);
             if (isNumber(item)) {
@@ -51,11 +53,11 @@ public class Calulator {
             } else if (isOperator(item)) {
                 String topItem = opStack.pop();
                 
-                if (topItem != "null") {
+                if (topItem != null) {
                     opStack.push(topItem);
                 }
                 
-                if(item=='(' || topItem.equals("null")  ) opStack.push(""+item);
+                if(item=='(' || topItem==null  ) opStack.push(""+item);
                 
                 else if (  isSmaller(topItem.charAt(0), item)&& item!=')'    ) {
                     opStack.push("" + item);
@@ -63,7 +65,6 @@ public class Calulator {
                     
                 } else if (item==')') {
                     int limit = opStack.size;
-                    opStack.display();
                     while (limit > 0) {
                         topItem = opStack.pop();
                         if (topItem.equals("(") ) {
@@ -99,9 +100,26 @@ public class Calulator {
             queue.enque(topItem);
         }
 
-        opStack.display();
-
         queue.display();
+        
+        //process the post-fix operation
+        Stack<Integer> stack = new Stack();
+        int qLength = queue.size;
+        while(qLength>0){
+            
+             String item=queue.deque();
+             if(isNumber(item.charAt(0))){
+                 //push directly in stack
+                 stack.push(Integer.parseInt(item));
+                
+                  
+             }else{
+                 //push in stack after computing
+                 //stack.push( compute(stack.pop(),stack.pop(),item);
+             }
+             
+            qLength--;
+        }
 
     }
 
