@@ -21,10 +21,10 @@ public class Calulator {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String exp = "2*3+5/(6+7*5^1)+4";  
+//        String exp = "2*3+5/(6+7*5^1)+4";
 //        String exp = "5/(6+7*5^8)+4";
 
-//        String exp = "7/(5+2)";
+        String exp = "3*3-9";
         int expInd = 0;
         int expLength = 0;
 
@@ -52,24 +52,23 @@ public class Calulator {
                 queue.enque(digit);
             } else if (isOperator(item)) {
                 String topItem = opStack.pop();
-                
+
                 if (topItem != null) {
                     opStack.push(topItem);
                 }
-                
-                if(item=='(' || topItem==null  ) opStack.push(""+item);
-                
-                else if (  isSmaller(topItem.charAt(0), item)&& item!=')'    ) {
+
+                if (item == '(' || topItem == null) {
                     opStack.push("" + item);
-                    
-                    
-                } else if (item==')') {
+                } else if (isSmaller(topItem.charAt(0), item) && item != ')') {
+                    opStack.push("" + item);
+
+                } else if (item == ')') {
                     int limit = opStack.size;
                     while (limit > 0) {
                         topItem = opStack.pop();
-                        if (topItem.equals("(") ) {
+                        if (topItem.equals("(")) {
                             break;
-                            
+
                         } else {
                             queue.enque("" + topItem);
                         }
@@ -78,7 +77,7 @@ public class Calulator {
                 } else {
                     int limit = opStack.size;
                     while (limit > 0) {
-                        if ( !isSmaller(topItem.charAt(0), item)) {
+                        if (!isSmaller(topItem.charAt(0), item)) {
                             topItem = opStack.pop();
                             queue.enque(topItem);
                         } else {
@@ -101,25 +100,26 @@ public class Calulator {
         }
 
         queue.display();
-        
+
         //process the post-fix operation
         Stack<Integer> stack = new Stack();
         int qLength = queue.size;
-        while(qLength>0){
-            
-             String item=queue.deque();
-             if(isNumber(item.charAt(0))){
-                 //push directly in stack
-                 stack.push(Integer.parseInt(item));
-                
-                  
-             }else{
-                 //push in stack after computing
-                 //stack.push( compute(stack.pop(),stack.pop(),item);
-             }
-             
+        while (qLength > 0) {
+
+            String item = queue.deque();
+            if (isNumber(item.charAt(0))) {
+                //push directly in stack
+                stack.push(Integer.parseInt(item));
+
+            } else {
+                //push in stack after computing
+                  stack.push(   compute(stack.pop(),stack.pop(),item) );
+            }
+
             qLength--;
         }
+        
+        System.out.println("\nthe final value is:"+stack.pop());
 
     }
 
@@ -138,7 +138,6 @@ public class Calulator {
         order.add('/');
         order.add(' ');
         order.add('^');
-        
 
         int inMain = order.indexOf(toCheck);
         int inCheck = order.indexOf(fromCheck);
@@ -166,6 +165,24 @@ public class Calulator {
         } else {
             return false;
         }
+    }
+
+    public static int compute(int op2, int op1, String operator) {
+       
+        int result = 0;
+        if (operator.equals("^") ) {
+            result = op1^op2;
+        } else if (operator.equals("/")) {
+            result = op1/op2;
+        } else if (operator.equals("*")) {
+            result = op1*op2;
+        } else if (operator.equals("+")) {
+            result = op1+op2;
+        } else if (operator.equals("-")) {
+            result = op1-op2;
+        }
+
+        return result;
     }
 
 }
