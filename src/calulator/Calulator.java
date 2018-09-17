@@ -22,7 +22,7 @@ public class Calulator {
      */
     public static void main(String[] args) {
 //        String exp = "27*31+5/(61+7*5^23)+52";
-        String exp = "11-3*5";
+        String exp = "7/(5+2)";
         int expInd = 0;
         int expLength = 0;
 
@@ -46,43 +46,40 @@ public class Calulator {
                 String digit = "" + item;
                 if (expInd + 1 < exp.length() && isNumber(exp.charAt(expInd + 1))) {
                     digit += exp.charAt(++expInd);
-//                    System.out.println("double digit number is:"+digit);
                 }
                 queue.enque(digit);
             } else if (isOperator(item)) {
                 String topItem = opStack.pop();
+                
                 if (topItem != "null") {
                     opStack.push(topItem);
                 }
-
-                if (topItem.equals("null") || isSmaller(topItem.charAt(0), item)) {
+                
+                if(item=='(' || topItem.equals("null")  ) opStack.push(""+item);
+                
+                else if (  isSmaller(topItem.charAt(0), item)&& item!=')'    ) {
                     opStack.push("" + item);
-                } else if (")".equals("" + item)) {
+                    
+                    
+                } else if (item==')') {
                     int limit = opStack.size;
-//                    System.out.println("size of stack"+limit);
+                    opStack.display();
                     while (limit > 0) {
-                        System.out.println("barcket closing found ");
                         topItem = opStack.pop();
-                        if (topItem == "(") {
+                        if (topItem.equals("(") ) {
                             break;
+                            
                         } else {
-                            queue.enque("" + item);
+                            queue.enque("" + topItem);
                         }
                         limit--;
                     }
-//                    System.out.println("mark1:");
-//                    queue.display();
                 } else {
                     int limit = opStack.size;
-                    opStack.display();
-                    System.out.println("same ops found");
                     while (limit > 0) {
-//                       System.out.println("limit"+limit);
-                        if (!isSmaller(topItem.charAt(0), item)) {
+                        if ( !isSmaller(topItem.charAt(0), item)) {
                             topItem = opStack.pop();
-
                             queue.enque(topItem);
-                            System.out.println("enqueing" + topItem);
                         } else {
                             break;
                         }
@@ -110,8 +107,10 @@ public class Calulator {
 
     public static boolean isSmaller(char toCheck, char fromCheck) {
         List<Character> order = new ArrayList<Character>();
-        order.add(')');
-        order.add(' ');
+//        order.add('(');  
+//        order.add(' ');
+//        order.add(')');
+//        order.add(' ');
         order.add('-');
         order.add(' ');
         order.add('+');
@@ -121,8 +120,7 @@ public class Calulator {
         order.add('/');
         order.add(' ');
         order.add('^');
-        order.add(' ');
-        order.add('(');
+        
 
         int inMain = order.indexOf(toCheck);
         int inCheck = order.indexOf(fromCheck);

@@ -41,7 +41,7 @@ public class Stack {
     
     public void display(){
         
-        System.out.println("\nStack is:");
+        System.out.print("\nStack is:");
         for(String item:list){
             System.out.print(item);
         }
